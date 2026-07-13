@@ -69,9 +69,9 @@
         <div class="hero-copy">
           <div class="badge reveal">
             <span class="badge-dot"></span>
-            v2.4.1 &nbsp;·&nbsp; Windows 10/11 &nbsp;·&nbsp; Open Source
+            <span id="heroVer">v2.4.1</span> &nbsp;·&nbsp; Windows 10/11 &nbsp;·&nbsp; Open Source
           </div>
-          <h1 class="reveal d1">Читы <span class="grad">не&nbsp;спрячутся</span>.<br>Вообще никак.</h1>
+          <h1 class="reveal d1">Читы <span class="grad glitch" data-text="не спрячутся">не&nbsp;спрячутся</span>.<br>Вообще никак.</h1>
           <p class="lead reveal d2">
             Профессиональная утилита для проверяющих FunTime.
             Сканирует диск со скоростью Everything и находит следы
@@ -89,7 +89,7 @@
           </div>
         </div>
 
-        <div class="hero-term reveal d2">
+        <div class="hero-term reveal rr d2">
           <div class="term tilt">
             <div class="term-bar">
               <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
@@ -100,11 +100,16 @@
           <div class="term-shadow" aria-hidden="true"></div>
         </div>
       </div>
+
+      <a href="#search" class="scroll-hint" aria-label="Листай вниз"><span></span></a>
     </section>
 
     <!-- ================= TICKER ================= -->
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
+        <div class="ticker-group">
+          <b>ДЕТЕКТИТ:</b><span>Nursultan</span><span>Celestial</span><span>Expensive 3.1</span><span>Wexside</span><span>Wild Client</span><span>RockStar</span><span>DeadCode</span><span>Akrien</span><span>Delta</span><span>NightWare</span><span>Baritone</span><span>приватные сборки</span><span>DLL-инжекты</span><span>чистилки</span>
+        </div>
         <div class="ticker-group">
           <b>ДЕТЕКТИТ:</b><span>Nursultan</span><span>Celestial</span><span>Expensive 3.1</span><span>Wexside</span><span>Wild Client</span><span>RockStar</span><span>DeadCode</span><span>Akrien</span><span>Delta</span><span>NightWare</span><span>Baritone</span><span>приватные сборки</span><span>DLL-инжекты</span><span>чистилки</span>
         </div>
@@ -130,7 +135,7 @@
           <p class="section-sub">Мини-версия движка на демо-данных реальной проверки. Тот же мгновенный фильтр, что и в утилите — начни печатать.</p>
         </div>
 
-        <div class="search-app reveal d1">
+        <div class="search-app reveal rs d1">
           <div class="sa-toolbar">
             <svg class="sa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
             <input type="text" id="saInput" class="sa-input" placeholder="Поиск по индексу: nursultan, *.jar, prefetch…" autocomplete="off" spellcheck="false" aria-label="Поиск по демо-индексу">
@@ -208,7 +213,7 @@
           <p class="section-sub">Четыре слоя анализа. Каждый сам по себе ловит большинство читеров — вместе они не оставляют шансов.</p>
         </div>
 
-        <div class="tabs reveal d1">
+        <div class="tabs reveal rs d1">
           <div class="tabs-nav" role="tablist" aria-label="Слои проверки">
             <button class="tab-btn active" role="tab" aria-selected="true" data-tab="0">Файловая система</button>
             <button class="tab-btn" role="tab" aria-selected="false" data-tab="1">Prefetch и журналы</button>
@@ -294,7 +299,7 @@
     <!-- ================= DEMO (timeline) ================= -->
     <section class="section" id="demo">
       <div class="container demo-grid">
-        <div class="demo-copy reveal">
+        <div class="demo-copy reveal rl">
           <div class="eyebrow">// Отчёт</div>
           <h2>Так выглядит<br><span class="grad">пойманный читер</span></h2>
           <p class="lead">Утилита строит таймлайн: когда чит скачали, когда запустили и когда попытались удалить. Спорить с таймлайном бесполезно.</p>
@@ -312,7 +317,7 @@
             <code>ftchecker --update-db <span>· обновить сигнатуры</span></code>
           </div>
         </div>
-        <div class="reveal d1">
+        <div class="reveal rr d1">
           <div class="term term-static tilt">
             <div class="term-bar">
               <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
@@ -340,7 +345,7 @@
           <div class="eyebrow">// Сравнение</div>
           <h2>Ручная проверка против <span class="grad">FT Checker</span></h2>
         </div>
-        <div class="compare reveal d1">
+        <div class="compare reveal rs d1">
           <div class="cmp-col cmp-manual">
             <div class="cmp-head">Ручная проверка</div>
             <ul>
@@ -428,15 +433,23 @@
     <!-- ================= DOWNLOAD ================= -->
     <section class="section dl" id="download">
       <div class="dl-glow" aria-hidden="true"></div>
+      <div class="radar" aria-hidden="true">
+        <div class="radar-ring r1"></div>
+        <div class="radar-ring r2"></div>
+        <div class="radar-ring r3"></div>
+        <div class="radar-beam"></div>
+        <i class="radar-dot rd1"></i><i class="radar-dot rd2"></i><i class="radar-dot rd3"></i>
+      </div>
       <div class="container dl-inner reveal">
         <div class="eyebrow">// Скачать</div>
         <h2>Готов к проверке?</h2>
         <p class="lead">Одна кнопка — и ни один читер больше не уйдёт от вердикта.</p>
-        <a class="btn btn-primary btn-xl pulse magnetic" href="https://github.com/funtime-cheker" target="_blank" rel="noopener">
+        <a class="btn btn-primary btn-xl pulse magnetic" id="dlBtn" href="https://github.com/funtime-cheker/funtime-cheker.github.io/releases" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
           Скачать FunTime Checker
         </a>
-        <div class="dl-meta">Windows 10/11 · ~4 МБ · без установки · <a href="https://github.com/funtime-cheker" target="_blank" rel="noopener">исходный код</a></div>
+        <div class="dl-meta"><span id="dlInfo">Windows 10/11 · ~4 МБ · без установки</span> · <a href="https://github.com/funtime-cheker/funtime-cheker.github.io" target="_blank" rel="noopener">исходный код</a></div>
+        <div class="dl-note" id="dlNote" hidden></div>
       </div>
     </section>
   </main>
@@ -460,7 +473,7 @@
       </nav>
       <nav class="footer-col" aria-label="Ресурсы">
         <div class="footer-title">Ресурсы</div>
-        <a href="https://github.com/funtime-cheker" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/funtime-cheker/funtime-cheker.github.io" target="_blank" rel="noopener">GitHub</a>
         <a href="#faq">FAQ</a>
         <a href="#demo">Пример отчёта</a>
       </nav>

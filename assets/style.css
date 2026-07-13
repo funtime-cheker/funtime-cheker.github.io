@@ -598,10 +598,168 @@ body.has-mouse .cursor-glow { opacity: 1; }
   .cmp-col { padding: 24px 20px; }
 }
 
+/* ============================================================
+   Extra animations
+   ============================================================ */
+
+/* --- reveal variants: слева, справа, с масштабом --- */
+.reveal.rl { transform: translateX(-40px); }
+.reveal.rr { transform: translateX(40px); }
+.reveal.rs { transform: translateY(22px) scale(0.95); }
+.reveal.in { transform: none; }
+
+/* --- glitch на акцентном слове заголовка --- */
+.glitch { position: relative; display: inline-block; }
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute; left: 0; top: 0; width: 100%; white-space: nowrap;
+  background: var(--grad);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  opacity: 0; pointer-events: none;
+}
+.glitch::before { animation: glitchA 5.2s infinite steps(1); }
+.glitch::after { animation: glitchB 5.2s infinite steps(1); }
+@keyframes glitchA {
+  0%, 91% { opacity: 0; transform: none; clip-path: none; }
+  92% { opacity: 0.85; transform: translate(-4px, -2px); clip-path: polygon(0 10%, 100% 10%, 100% 38%, 0 38%); }
+  94% { opacity: 0.85; transform: translate(4px, 1px); clip-path: polygon(0 55%, 100% 55%, 100% 82%, 0 82%); }
+  96%, 100% { opacity: 0; transform: none; }
+}
+@keyframes glitchB {
+  0%, 92% { opacity: 0; transform: none; clip-path: none; }
+  93% { opacity: 0.7; transform: translate(5px, 2px); clip-path: polygon(0 62%, 100% 62%, 100% 92%, 0 92%); }
+  95% { opacity: 0.7; transform: translate(-5px, -1px); clip-path: polygon(0 4%, 100% 4%, 100% 30%, 0 30%); }
+  96%, 100% { opacity: 0; transform: none; }
+}
+
+/* --- подчёркивание заголовков секций при появлении --- */
+.section-head::after {
+  content: ""; display: block; width: 0; height: 2px; margin-top: 20px;
+  background: var(--grad); border-radius: 2px;
+  box-shadow: 0 0 14px rgba(255, 45, 85, 0.5);
+  transition: width 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) 0.25s;
+}
+.section-head.in::after { width: 90px; }
+
+/* --- блик, следующий за курсором, на карточках и терминалах --- */
+.tilt::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 3;
+  background: radial-gradient(460px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.07), transparent 46%);
+  opacity: 0; transition: opacity 0.35s; pointer-events: none;
+}
+.tilt:hover::after { opacity: 1; }
+
+/* --- прицел-логотип крутится при наведении --- */
+.logo svg { transition: transform 0.5s cubic-bezier(0.3, 0.7, 0.3, 1.35); }
+.logo:hover svg { transform: rotate(180deg); }
+
+/* --- статистика: подъём и свечение цифр --- */
+.stat { transition: transform 0.3s; }
+.stat:hover { transform: translateY(-5px); }
+.stat:hover .stat-num { filter: drop-shadow(0 0 14px rgba(255, 45, 85, 0.45)); }
+
+/* --- пункты вкладок появляются каскадом --- */
+.tabs.in .tab-panel.active .tp-list li { opacity: 0; animation: tabLi 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) forwards; }
+.tabs.in .tab-panel.active .tp-list li:nth-child(1) { animation-delay: 0.05s; }
+.tabs.in .tab-panel.active .tp-list li:nth-child(2) { animation-delay: 0.1s; }
+.tabs.in .tab-panel.active .tp-list li:nth-child(3) { animation-delay: 0.15s; }
+.tabs.in .tab-panel.active .tp-list li:nth-child(4) { animation-delay: 0.2s; }
+.tabs.in .tab-panel.active .tp-list li:nth-child(5) { animation-delay: 0.25s; }
+.tabs.in .tab-panel.active .tp-list li:nth-child(6) { animation-delay: 0.3s; }
+@keyframes tabLi { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+
+/* --- пульс вокруг кружка VS --- */
+.cmp-vs { position: relative; }
+.cmp-vs::after {
+  content: ""; position: absolute; inset: -1px; border-radius: 50%;
+  border: 1px solid rgba(255, 45, 85, 0.5);
+  animation: vsPing 2.2s ease-out infinite;
+}
+@keyframes vsPing { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.9); opacity: 0; } }
+
+/* --- индикатор «листай вниз» в hero --- */
+.scroll-hint {
+  position: absolute; left: 50%; bottom: 26px; margin-left: -13px;
+  width: 26px; height: 42px; z-index: 4;
+  border: 2px solid rgba(255, 255, 255, 0.22); border-radius: 14px;
+  transition: border-color 0.3s;
+}
+.scroll-hint span {
+  position: absolute; left: 50%; top: 7px; width: 4px; height: 8px; margin-left: -2px;
+  border-radius: 3px; background: var(--accent);
+  box-shadow: 0 0 8px rgba(255, 45, 85, 0.8);
+  animation: wheel 1.8s ease-in-out infinite;
+}
+@keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(16px); opacity: 0; } 100% { transform: translateY(0); opacity: 0; } }
+.scroll-hint:hover { border-color: rgba(255, 45, 85, 0.6); }
+
+/* --- мягкое свечение-аврора в секциях --- */
+#search::before {
+  content: ""; position: absolute; top: 6%; right: -180px; width: 540px; height: 540px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 122, 24, 0.07), transparent 65%);
+  filter: blur(50px);
+  animation: drift 16s ease-in-out infinite alternate;
+}
+#coverage::before {
+  content: ""; position: absolute; bottom: 4%; left: -200px; width: 560px; height: 560px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 45, 85, 0.06), transparent 65%);
+  filter: blur(50px);
+  animation: drift 20s ease-in-out infinite alternate-reverse;
+}
+
+/* --- радар в секции скачивания --- */
+.radar {
+  position: absolute; left: 50%; top: 50%; width: 680px; height: 680px;
+  transform: translate(-50%, -50%); pointer-events: none; opacity: 0.55;
+}
+.radar::before {
+  content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255, 45, 85, 0.12), transparent);
+}
+.radar::after {
+  content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 45, 85, 0.12), transparent);
+}
+.radar-ring { position: absolute; border: 1px solid rgba(255, 45, 85, 0.13); border-radius: 50%; }
+.r1 { inset: 0; } .r2 { inset: 17%; } .r3 { inset: 34%; }
+.radar-beam {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(255, 45, 85, 0.16), transparent 70deg);
+  animation: radarSpin 5s linear infinite;
+}
+@keyframes radarSpin { to { transform: rotate(360deg); } }
+.radar-dot {
+  position: absolute; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 12px var(--accent);
+  opacity: 0; animation: blipPing 5s infinite;
+}
+.rd1 { left: 62%; top: 30%; animation-delay: 0.9s; }
+.rd2 { left: 30%; top: 62%; animation-delay: 3s; }
+.rd3 { left: 72%; top: 58%; animation-delay: 4.2s; }
+@keyframes blipPing {
+  0%, 4% { opacity: 0; transform: scale(0.4); }
+  8% { opacity: 1; transform: scale(1.25); }
+  30% { opacity: 0.5; }
+  55% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 0; }
+}
+
+/* --- счётчик скачиваний под кнопкой --- */
+.dl-note { margin-top: 14px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.dl-note b { color: var(--ok); font-weight: 600; }
+
+@media (max-width: 900px) {
+  .scroll-hint { display: none; }
+  .radar { width: 440px; height: 440px; opacity: 0.35; }
+}
+
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001s !important; animation-iteration-count: 1 !important; transition-duration: 0.001s !important; }
   .reveal { opacity: 1; transform: none; }
-  .scanline, .cursor-glow { display: none; }
+  .scanline, .cursor-glow, .glitch::before, .glitch::after, .scroll-hint, .radar-beam { display: none; }
+  .tabs.in .tab-panel.active .tp-list li { opacity: 1; animation: none; }
 }

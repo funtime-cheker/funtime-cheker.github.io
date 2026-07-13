@@ -448,4 +448,96 @@
 
     render("");
   }
+
+  /* ---------- hero mouse parallax ---------- */
+  const hero = document.querySelector(".hero");
+  if (hero && !isTouch && !reduced) {
+    const g1 = hero.querySelector(".hero-glow-1");
+    const g2 = hero.querySelector(".hero-glow-2");
+    const term = hero.querySelector(".hero-term");
+    let px = 0, py = 0, cx = 0, cy = 0, raf = null;
+    const apply = () => {
+      cx += (px - cx) * 0.07;
+      cy += (py - cy) * 0.07;
+      if (g1) g1.style.translate = `${(cx * -30).toFixed(1)}px ${(cy * -20).toFixed(1)}px`;
+      if (g2) g2.style.translate = `${(cx * 22).toFixed(1)}px ${(cy * 16).toFixed(1)}px`;
+      if (term) term.style.translate = `${(cx * -9).toFixed(1)}px ${(cy * -7).toFixed(1)}px`;
+      if (Math.abs(px - cx) + Math.abs(py - cy) > 0.002) raf = requestAnimationFrame(apply);
+      else raf = null;
+    };
+    hero.addEventListener("mousemove", (e) => {
+      const r = hero.getBoundingClientRect();
+      px = (e.clientX - r.left) / r.width - 0.5;
+      py = (e.clientY - r.top) / r.height - 0.5;
+      if (!raf) raf = requestAnimationFrame(apply);
+    }, { passive: true });
+  }
+
+  /* ---------- cursor spotlight position for .tilt shine ---------- */
+  if (!isTouch && !reduced) {
+    document.querySelectorAll(".tilt").forEach((el) => {
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+        el.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+      }, { passive: true });
+    });
+  }
+
+  /* ---------- search placeholder typing ---------- */
+  if (saInput && !reduced) {
+    const HINTS = ["nursultan", "*.jar", "prefetch", "celestial", "OBS.exe", ":удалённые"];
+    const BASE = "Поиск по индексу: ";
+    let hi = 0, chi = 0, deleting = false;
+    const tickPh = () => {
+      if (document.activeElement === saInput || saInput.value) {
+        saInput.setAttribute("placeholder", "Поиск по индексу: nursultan, *.jar, prefetch…");
+        setTimeout(tickPh, 1500);
+        return;
+      }
+      const word = HINTS[hi];
+      chi += deleting ? -1 : 1;
+      saInput.setAttribute("placeholder", BASE + word.slice(0, chi) + "▌");
+      let delay = deleting ? 40 : 90;
+      if (!deleting && chi === word.length) { delay = 1600; deleting = true; }
+      else if (deleting && chi === 0) { deleting = false; hi = (hi + 1) % HINTS.length; delay = 350; }
+      setTimeout(tickPh, delay);
+    };
+    tickPh();
+  }
+
+  /* ---------- GitHub release resolver ----------
+     Как только в репозитории появляется релиз с .exe-ассетом,
+     кнопка скачивания начинает вести прямо на файл, а версия,
+     размер и счётчик скачиваний обновляются автоматически. */
+  const GH_REPO = "funtime-cheker/funtime-cheker.github.io";
+  const dlBtn = document.getElementById("dlBtn");
+  if (dlBtn) {
+    fetch("https://api.github.com/repos/" + GH_REPO + "/releases/latest", {
+      headers: { Accept: "application/vnd.github+json" },
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((rel) => {
+        if (!rel || !Array.isArray(rel.assets) || !rel.assets.length) return;
+        const asset = rel.assets.find((a) => /\.exe$/i.test(a.name)) || rel.assets[0];
+
+        dlBtn.href = asset.browser_download_url;
+        dlBtn.removeAttribute("target");
+
+        const ver = rel.tag_name ? "v" + rel.tag_name.replace(/^v/i, "") : "";
+        const mb = (asset.size / 1048576).toFixed(1).replace(".", ",");
+        const info = document.getElementById("dlInfo");
+        if (info) info.textContent = `${ver ? ver + " · " : ""}Windows 10/11 · ${mb} МБ · без установки`;
+
+        const heroVer = document.getElementById("heroVer");
+        if (heroVer && ver) heroVer.textContent = ver;
+
+        const note = document.getElementById("dlNote");
+        if (note && asset.download_count > 0) {
+          note.hidden = false;
+          note.innerHTML = `скачано <b>${asset.download_count.toLocaleString("ru-RU")}</b> раз`;
+        }
+      })
+      .catch(() => {});
+  }
 })();
