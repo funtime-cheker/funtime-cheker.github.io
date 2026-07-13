@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FunTime Checker — найди любой чит за секунды</title>
+  <meta name="description" content="Профессиональная утилита для проверяющих FunTime. Сканирует диск со скоростью Everything и находит следы любого чит-клиента — даже удалённого.">
+  <meta name="theme-color" content="#07070c">
+  <meta property="og:title" content="FunTime Checker — найди любой чит за секунды">
+  <meta property="og:description" content="Утилита для проверок на FunTime: MFT-индекс, Prefetch, журналы, 250+ сигнатур чит-клиентов. Полный скан за ~8 секунд.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="FunTime Checker">
+  <meta name="twitter:description" content="Найди любой чит за секунды. Утилита для проверяющих FunTime.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff2d55' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 3v4M12 17v4M3 12h4M17 12h4'/%3E%3Ccircle cx='12' cy='12' r='1.5' fill='%23ff2d55'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "FunTime Checker",
+    "operatingSystem": "Windows 10, Windows 11",
+    "applicationCategory": "SecurityApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Утилита для проверяющих FunTime: мгновенный поиск следов чит-клиентов по MFT, Prefetch, журналам Windows и реестру."
+  }
+  </script>
+</head>
+<body>
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="logo" aria-label="FunTime Checker — на главную">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 3v4M12 17v4M3 12h4M17 12h4"/>
+          <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+        </svg>
+        <span>FUNTIME<em>CHECKER</em></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Основная навигация">
+        <a href="#search" data-spy="search">Поиск</a>
+        <a href="#features" data-spy="features">Возможности</a>
+        <a href="#coverage" data-spy="coverage">Что проверяет</a>
+        <a href="#faq" data-spy="faq">FAQ</a>
+        <a href="#download" class="btn btn-sm btn-primary">Скачать</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="top">
+      <canvas id="net" aria-hidden="true"></canvas>
+      <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+      <div class="scanline" aria-hidden="true"></div>
+
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <div class="badge reveal">
+            <span class="badge-dot"></span>
+            v2.4.1 &nbsp;·&nbsp; Windows 10/11 &nbsp;·&nbsp; Open Source
+          </div>
+          <h1 class="reveal d1">Читы <span class="grad">не&nbsp;спрячутся</span>.<br>Вообще никак.</h1>
+          <p class="lead reveal d2">
+            Профессиональная утилита для проверяющих FunTime.
+            Сканирует диск со скоростью Everything и находит следы
+            любого чит-клиента — <b>даже удалённого за минуту до проверки</b>.
+          </p>
+          <div class="cta reveal d3">
+            <a href="#download" class="btn btn-primary btn-lg magnetic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+              Скачать бесплатно
+            </a>
+            <a href="#search" class="btn btn-ghost btn-lg">Попробовать поиск</a>
+          </div>
+          <div class="hero-meta reveal d4">
+            <span>Без установки</span><i></i><span>~4 МБ</span><i></i><span>Скан за ~8 сек</span>
+          </div>
+        </div>
+
+        <div class="hero-term reveal d2">
+          <div class="term tilt">
+            <div class="term-bar">
+              <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
+              <span class="term-title">ftchecker.exe — полный скан</span>
+            </div>
+            <div class="term-body" id="termBody"></div>
+          </div>
+          <div class="term-shadow" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TICKER ================= -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <div class="ticker-group">
+          <b>ДЕТЕКТИТ:</b><span>Nursultan</span><span>Celestial</span><span>Expensive 3.1</span><span>Wexside</span><span>Wild Client</span><span>RockStar</span><span>DeadCode</span><span>Akrien</span><span>Delta</span><span>NightWare</span><span>Baritone</span><span>приватные сборки</span><span>DLL-инжекты</span><span>чистилки</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= STATS ================= -->
+    <section class="stats">
+      <div class="container stats-grid">
+        <div class="stat reveal"><div class="stat-num"><span class="num" data-count="250">0</span>+</div><div class="stat-label">сигнатур в базе</div></div>
+        <div class="stat reveal d1"><div class="stat-num"><span class="num" data-count="8">0</span> сек</div><div class="stat-label">средний полный скан</div></div>
+        <div class="stat reveal d2"><div class="stat-num"><span class="num" data-count="99.2" data-decimals="1">0</span>%</div><div class="stat-label">точность вердикта</div></div>
+        <div class="stat reveal d3"><div class="stat-num"><span class="num" data-count="12400">0</span></div><div class="stat-label">проверок проведено</div></div>
+      </div>
+    </section>
+
+    <!-- ================= SEARCH DEMO ================= -->
+    <section class="section" id="search">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">// Живое демо</div>
+          <h2>Попробуй поиск <span class="grad">прямо здесь</span></h2>
+          <p class="section-sub">Мини-версия движка на демо-данных реальной проверки. Тот же мгновенный фильтр, что и в утилите — начни печатать.</p>
+        </div>
+
+        <div class="search-app reveal d1">
+          <div class="sa-toolbar">
+            <svg class="sa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input type="text" id="saInput" class="sa-input" placeholder="Поиск по индексу: nursultan, *.jar, prefetch…" autocomplete="off" spellcheck="false" aria-label="Поиск по демо-индексу">
+            <span class="sa-kbd" aria-hidden="true">/</span>
+          </div>
+          <div class="sa-chips" role="group" aria-label="Быстрые фильтры">
+            <button class="chip" data-q="nursultan">nursultan</button>
+            <button class="chip" data-q="*.jar">*.jar</button>
+            <button class="chip" data-q="prefetch">prefetch</button>
+            <button class="chip" data-q=":удалённые">удалённые</button>
+            <button class="chip" data-q="">сбросить</button>
+          </div>
+          <div class="sa-meta" id="saMeta" aria-live="polite"></div>
+          <div class="sa-table-wrap">
+            <table class="sa-table">
+              <thead>
+                <tr><th>Путь</th><th>Размер</th><th>Изменён</th><th>Статус</th></tr>
+              </thead>
+              <tbody id="saBody"></tbody>
+            </table>
+          </div>
+          <div class="sa-empty" id="saEmpty" hidden>Ничего не найдено. Читер бы обрадовался — но это демо.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+    <section class="section section-alt" id="features">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">// Возможности</div>
+          <h2>Всё, что нужно проверяющему.<br><span class="grad">И ничего лишнего.</span></h2>
+        </div>
+        <div class="grid grid-3">
+          <article class="card tilt reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg></div>
+            <h3>Скорость Everything</h3>
+            <p>Прямое чтение MFT диска: миллионы файлов индексируются за пару секунд. Поиск по имени, хэшу и дате — мгновенный.</p>
+          </article>
+          <article class="card tilt reveal d1">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4.5"/></svg></div>
+            <h3>250+ сигнатур</h3>
+            <p>База актуальных чит-клиентов FunTime: от Nursultan до приватных сборок. Пополняется каждый день сообществом проверяющих.</p>
+          </article>
+          <article class="card tilt reveal d2">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <h3>Видит удалённое</h3>
+            <p>Prefetch, журналы Windows, USN Journal, корзина. Следы остаются, даже если чит удалили — и утилита их найдёт.</p>
+          </article>
+          <article class="card tilt reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18M10.5 6H19a1 1 0 011 1v10M6 6H5a1 1 0 00-1 1v11a1 1 0 001 1h13"/></svg></div>
+            <h3>Антиобход</h3>
+            <p>Детектит чистилки, сброс журналов, переименование в «OBS.exe» и самоудаляющиеся лоадеры. Попытка замести следы — отдельный флаг.</p>
+          </article>
+          <article class="card tilt reveal d1">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a1 1 0 00-1 1v18a1 1 0 001 1h12a1 1 0 001-1V7l-5-5z"/><path d="M14 2v5h5M9 13h6M9 17h6"/></svg></div>
+            <h3>Отчёт одним кликом</h3>
+            <p>Готовый HTML-отчёт с таймлайном событий и уликами. Скинул в дискорд — и вердикт очевиден каждому.</p>
+          </article>
+          <article class="card tilt reveal d2">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/><circle cx="12" cy="15.5" r="1.5"/></svg></div>
+            <h3>Локально и безопасно</h3>
+            <p>Ничего не отправляет в сеть и не трогает файлы игрока. Открытый исходный код — можешь проверить сам.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= COVERAGE (tabs) ================= -->
+    <section class="section" id="coverage">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">// Глубина проверки</div>
+          <h2>Что именно проверяется</h2>
+          <p class="section-sub">Четыре слоя анализа. Каждый сам по себе ловит большинство читеров — вместе они не оставляют шансов.</p>
+        </div>
+
+        <div class="tabs reveal d1">
+          <div class="tabs-nav" role="tablist" aria-label="Слои проверки">
+            <button class="tab-btn active" role="tab" aria-selected="true" data-tab="0">Файловая система</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="1">Prefetch и журналы</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="2">Реестр и следы</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="3">Процессы и память</button>
+          </div>
+
+          <div class="tab-panels">
+            <div class="tab-panel active" role="tabpanel">
+              <div class="tp-count"><span class="grad">1 842 337</span> объектов за 2.1 с</div>
+              <ul class="tp-list">
+                <li>MFT-индекс всех NTFS-томов — как у Everything</li>
+                <li>USN Journal — полная история файловых операций</li>
+                <li>Корзина и теневые копии</li>
+                <li>Альтернативные потоки NTFS (ADS)</li>
+                <li>Сверка хэшей с базой сигнатур</li>
+              </ul>
+            </div>
+            <div class="tab-panel" role="tabpanel" hidden>
+              <div class="tp-count"><span class="grad">14 302</span> события</div>
+              <ul class="tp-list">
+                <li>Prefetch — что и когда запускалось</li>
+                <li>Журналы событий Windows</li>
+                <li>BAM/DAM — фоновая активность процессов</li>
+                <li>SRUM — сетевая активность приложений</li>
+                <li>Единый таймлайн активности игрока</li>
+              </ul>
+            </div>
+            <div class="tab-panel" role="tabpanel" hidden>
+              <div class="tp-count"><span class="grad">3 812</span> ключей реестра</div>
+              <ul class="tp-list">
+                <li>ShimCache, AmCache, MuiCache</li>
+                <li>UserAssist — запуски из проводника</li>
+                <li>MRU-списки и Jump Lists</li>
+                <li>Службы DPS / PcaSvc</li>
+                <li>Автозагрузка и запланированные задачи</li>
+              </ul>
+            </div>
+            <div class="tab-panel" role="tabpanel" hidden>
+              <div class="tp-count"><span class="grad">214</span> процессов</div>
+              <ul class="tp-list">
+                <li>Сканирование запущенных процессов</li>
+                <li>Детект JNI-инжектов в javaw.exe</li>
+                <li>Подозрительные модули и хуки</li>
+                <li>Маскировка под системные имена</li>
+                <li>Проверка цифровых подписей</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOW ================= -->
+    <section class="section section-alt" id="how">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">// Как это работает</div>
+          <h2>Три шага до вердикта</h2>
+        </div>
+        <div class="steps">
+          <div class="step reveal">
+            <div class="step-num">01</div>
+            <h3>Скачай и запусти</h3>
+            <p>Один .exe без установки. Запусти от имени администратора на ПК проверяемого игрока.</p>
+          </div>
+          <div class="step-line" aria-hidden="true"></div>
+          <div class="step reveal d1">
+            <div class="step-num">02</div>
+            <h3>Нажми «Полный скан»</h3>
+            <p>MFT, Prefetch, журналы, реестр, процессы и корзина — всё проверяется автоматически за ~8 секунд.</p>
+          </div>
+          <div class="step-line" aria-hidden="true"></div>
+          <div class="step reveal d2">
+            <div class="step-num">03</div>
+            <h3>Получи вердикт</h3>
+            <p>Таймлайн действий игрока и отчёт со ссылками на улики. Финальное решение — за тобой.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DEMO (timeline) ================= -->
+    <section class="section" id="demo">
+      <div class="container demo-grid">
+        <div class="demo-copy reveal">
+          <div class="eyebrow">// Отчёт</div>
+          <h2>Так выглядит<br><span class="grad">пойманный читер</span></h2>
+          <p class="lead">Утилита строит таймлайн: когда чит скачали, когда запустили и когда попытались удалить. Спорить с таймлайном бесполезно.</p>
+          <ul class="checklist">
+            <li>Удалённые файлы — по MFT и USN Journal</li>
+            <li>История запусков — по Prefetch и журналам</li>
+            <li>Инжекты в процесс игры — в реальном времени</li>
+            <li>Попытки очистки — отдельным флагом</li>
+          </ul>
+          <div class="cli-hint">
+            <div class="cli-hint-title">Для тех, кто любит консоль:</div>
+            <code>ftchecker --scan --full</code>
+            <code>ftchecker --quick <span>· экспресс-проверка за 3 с</span></code>
+            <code>ftchecker --report out.html <span>· сохранить отчёт</span></code>
+            <code>ftchecker --update-db <span>· обновить сигнатуры</span></code>
+          </div>
+        </div>
+        <div class="reveal d1">
+          <div class="term term-static tilt">
+            <div class="term-bar">
+              <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
+              <span class="term-title">report_13-07-2026.html</span>
+            </div>
+            <div class="term-body">
+              <div class="t-line t-dim">── ТАЙМЛАЙН ПРОВЕРКИ ──────────────</div>
+              <div class="t-line t-ok">13:58:02&nbsp; загружен&nbsp; loader_x.exe (browser)</div>
+              <div class="t-line t-warn">14:05:11&nbsp; запуск&nbsp;&nbsp;&nbsp; nursultan.exe</div>
+              <div class="t-line t-warn">14:06:43&nbsp; инжект&nbsp;&nbsp;&nbsp; javaw.exe ← JNI</div>
+              <div class="t-line t-err">14:31:55&nbsp; НАЧАЛО ПРОВЕРКИ</div>
+              <div class="t-line t-warn">14:32:07&nbsp; удаление&nbsp; nursultan.exe</div>
+              <div class="t-line t-warn">14:32:19&nbsp; очистка&nbsp;&nbsp; корзины</div>
+              <div class="t-line t-err">ВЕРДИКТ: ЧИТ-КЛИЕНТ · уверенность 99.2%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= COMPARE ================= -->
+    <section class="section section-alt" id="compare">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">// Сравнение</div>
+          <h2>Ручная проверка против <span class="grad">FT Checker</span></h2>
+        </div>
+        <div class="compare reveal d1">
+          <div class="cmp-col cmp-manual">
+            <div class="cmp-head">Ручная проверка</div>
+            <ul>
+              <li><i class="x"></i>15–40 минут на игрока</li>
+              <li><i class="x"></i>Удалённый чит легко пропустить</li>
+              <li><i class="x"></i>Зависит от опыта проверяющего</li>
+              <li><i class="x"></i>Доказательства — скриншоты вручную</li>
+              <li><i class="x"></i>Новые читы приходится изучать самому</li>
+            </ul>
+          </div>
+          <div class="cmp-vs" aria-hidden="true">VS</div>
+          <div class="cmp-col cmp-ft">
+            <div class="cmp-head">FunTime Checker</div>
+            <ul>
+              <li><i class="v"></i>~8 секунд полный скан</li>
+              <li><i class="v"></i>MFT + Prefetch + журналы: следы остаются</li>
+              <li><i class="v"></i>Автоматические сигнатуры и вердикт</li>
+              <li><i class="v"></i>HTML-отчёт с таймлайном в один клик</li>
+              <li><i class="v"></i>База обновляется ежедневно</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CHANGELOG ================= -->
+    <section class="section changelog-sec">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">// Changelog</div>
+          <h2>Проект живёт и обновляется</h2>
+        </div>
+        <div class="changelog reveal d1">
+          <div class="cl-item">
+            <div class="cl-ver">v2.4.1 <span class="cl-tag">текущая</span></div>
+            <div class="cl-date">13.07.2026</div>
+            <ul><li>+38 новых сигнатур</li><li>Детект чистилки XCleaner</li><li>Фикс ложных срабатываний на OBS</li></ul>
+          </div>
+          <div class="cl-item">
+            <div class="cl-ver">v2.4.0</div>
+            <div class="cl-date">28.06.2026</div>
+            <ul><li>Поиск по хэшам файлов</li><li>Анализ SRUM</li><li>Ускорение индексации на 40%</li></ul>
+          </div>
+          <div class="cl-item cl-soon">
+            <div class="cl-ver">Скоро <span class="cl-tag cl-tag-soon">roadmap</span></div>
+            <div class="cl-date">v2.5</div>
+            <ul><li>Автообновление базы сигнатур</li><li>Экспорт отчёта в PDF</li><li>Режим наблюдения --watch</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="section section-alt" id="faq">
+      <div class="container container-narrow">
+        <div class="section-head reveal">
+          <div class="eyebrow">// FAQ</div>
+          <h2>Частые вопросы</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">Это чит?<span class="faq-x" aria-hidden="true"></span></button>
+            <div class="faq-a"><p>Нет. FunTime Checker — инструмент <b>для проверяющих и модераторов</b>. Он ищет следы читов на ПК игрока во время проверки, а не помогает их скрывать.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">Почему так быстро?<span class="faq-x" aria-hidden="true"></span></button>
+            <div class="faq-a"><p>Утилита читает главную файловую таблицу NTFS (MFT) напрямую — так же, как это делает Everything. Вместо обхода миллионов папок диск индексируется за пару секунд.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">Игрок удалил чит до проверки — найдёте?<span class="faq-x" aria-hidden="true"></span></button>
+            <div class="faq-a"><p>В подавляющем большинстве случаев — да. Windows хранит следы в Prefetch, журналах событий, USN Journal и реестре. Удаление файла эти следы не стирает, а сама попытка «почиститься» помечается отдельным флагом.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">Какие системы поддерживаются?<span class="faq-x" aria-hidden="true"></span></button>
+            <div class="faq-a"><p>Windows 10 и Windows 11 (x64). Нужны права администратора — без них не прочитать MFT и журналы.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">Это бесплатно?<span class="faq-x" aria-hidden="true"></span></button>
+            <div class="faq-a"><p>Да, полностью. Исходный код открыт на GitHub — можешь изучить, собрать сам и предложить свои сигнатуры в базу.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DOWNLOAD ================= -->
+    <section class="section dl" id="download">
+      <div class="dl-glow" aria-hidden="true"></div>
+      <div class="container dl-inner reveal">
+        <div class="eyebrow">// Скачать</div>
+        <h2>Готов к проверке?</h2>
+        <p class="lead">Одна кнопка — и ни один читер больше не уйдёт от вердикта.</p>
+        <a class="btn btn-primary btn-xl pulse magnetic" href="https://github.com/funtime-cheker" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+          Скачать FunTime Checker
+        </a>
+        <div class="dl-meta">Windows 10/11 · ~4 МБ · без установки · <a href="https://github.com/funtime-cheker" target="_blank" rel="noopener">исходный код</a></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+          <span>FUNTIME<em>CHECKER</em></span>
+        </a>
+        <p>Утилита для проверяющих: найди следы любого чит-клиента за секунды.</p>
+      </div>
+      <nav class="footer-col" aria-label="Продукт">
+        <div class="footer-title">Продукт</div>
+        <a href="#features">Возможности</a>
+        <a href="#coverage">Что проверяет</a>
+        <a href="#search">Живое демо</a>
+        <a href="#download">Скачать</a>
+      </nav>
+      <nav class="footer-col" aria-label="Ресурсы">
+        <div class="footer-title">Ресурсы</div>
+        <a href="https://github.com/funtime-cheker" target="_blank" rel="noopener">GitHub</a>
+        <a href="#faq">FAQ</a>
+        <a href="#demo">Пример отчёта</a>
+      </nav>
+      <div class="footer-col">
+        <div class="footer-title">Статус</div>
+        <div class="footer-status"><span class="badge-dot"></span> База сигнатур: 13.07.2026</div>
+        <div class="footer-status-sub">v2.4.1 · стабильная</div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> FunTime Checker. Фанатский проект, не аффилирован с сервером FunTime. Инструмент предназначен для модераторов и добровольных проверок.</p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
