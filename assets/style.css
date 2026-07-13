@@ -750,6 +750,11 @@ body.has-mouse .cursor-glow { opacity: 1; }
 .dl-note { margin-top: 14px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
 .dl-note b { color: var(--ok); font-weight: 600; }
 
+/* --- юридическая информация в подвале --- */
+.footer-legal { display: flex; flex-wrap: wrap; gap: 6px 30px; margin-top: 12px; }
+.footer-legal span { position: relative; color: #63637a; font-size: 0.76rem; }
+.footer-legal span + span::before { content: "·"; position: absolute; left: -18px; color: #3a3a48; }
+
 @media (max-width: 900px) {
   .scroll-hint { display: none; }
   .radar { width: 440px; height: 440px; opacity: 0.35; }
